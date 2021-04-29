@@ -1,2 +1,6 @@
-<h1>Admin::Dashboard#show</h1>
-<p>Find me in app/views/admin/dashboard/show.html.erb</p>
+<dl class="row">
+  <a href="admin/products#index"><dt class="col-sm-5">Number of products in store: </dt></a>
+  <dd class="col-sm-1"><%= @productCount %></dd>
+  <a href="categories/1"><dt class="col-sm-5">Number of categories for products:</dt></a>
+  <dd class="col-sm-1"><%= @categoryCount %></dd>
+</dl>
