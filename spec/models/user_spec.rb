@@ -14,7 +14,7 @@ RSpec.describe User, type: :model do
 
     it "password_confirmation field must be filled out" do
       @user = User.create(first_name: "John", last_name: "Smith", email: "jsmith@gmail.com", password: nil, password_confirmation: "pass")
-      expect(@user.errors.full_messages).to match ["Password can't be blank"]
+      expect(@user.errors.full_messages).to match ["Password can't be blank", "Password is too short (minimum is 3 characters)"]
     end
 
     it "the password and password_confirmation fields must match" do
@@ -50,8 +50,9 @@ RSpec.describe User, type: :model do
   end
 
   describe "Passwords" do
-    it "must have a minimum length when user account is being created" do
-      
+    it "must meet the minimum length (3 characters) when user account is being created" do
+      @user = User.create(first_name: "John", last_name: "Smith", email: "jsmith@gmail.com", password: "pa", password_confirmation: "pa")
+      expect(@user.errors.full_messages).to match ["Password is too short (minimum is 3 characters)"]
     end
   end
 
