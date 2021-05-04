@@ -56,7 +56,12 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe "Authentication (class) method" do
-    
+  describe ".authenticate_with_credentials" do
+    it "username and password must match to log in successfully" do
+      @user = User.create(first_name: "Kelly", last_name: "Smith", email: "ksmith@gmail.com", password: "kel", password_confirmation: "kel")
+      expect(User.authenticate_with_credentials('ksmith@gmail.com', 'kellll')).to be_nil
+      expect(User.authenticate_with_credentials('ksmith@gmail.com', 'kel')).to match @user
+    end
   end
+
 end
