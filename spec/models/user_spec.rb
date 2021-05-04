@@ -62,6 +62,16 @@ RSpec.describe User, type: :model do
       expect(User.authenticate_with_credentials('ksmith@gmail.com', 'kellll')).to be_nil
       expect(User.authenticate_with_credentials('ksmith@gmail.com', 'kel')).to match @user
     end
+
+    it "authentication is valid if user has whitespace surrounding email entry" do
+      @user = User.create(first_name: "Kelly", last_name: "Smith", email: "ksmith@gmail.com", password: "kel", password_confirmation: "kel")
+      expect(User.authenticate_with_credentials('    ksmith@gmail.com    ', 'kel')).to match @user
+    end
+
+    it "authentication succeeds regardless of email case" do
+      @user = User.create(first_name: "Kelly", last_name: "Smith", email: "ksmith@gmail.com", password: "kel", password_confirmation: "kel")
+      expect(User.authenticate_with_credentials('KSmith@GMail.Com', 'kel')).to match @user
+    end
   end
 
 end
